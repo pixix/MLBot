@@ -1,0 +1,253 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  frontend
+
+  Sample SAM Template for frontend
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: "'*'"
+      Auth:
+        ResourcePolicy:
+          IpRangeWhitelist: "'*'"
+
+  LambdaFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ml_bot/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Environment:
+        Variables:
+          BUCKET: !Ref DataBucket
+          FARGATE_CLUSTER: !GetAtt FargateCluster.Arn
+          FARGATE_EXECUTION_ROLE: !GetAtt FargateExecutionRole.Arn
+          VPC: !Ref VPC
+          PUBLIC_SUBNET: !Ref PublicSubnet1
+      Events:
+        Welcome:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hello
+            Method: get
+            RestApiId:
+              Ref: ApiGatewayApi
+        Upload:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /upload
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+        TrainingJob:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /training_job
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+        Prediction:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /predict
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+        Status:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /status
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+      Policies:
+        - AmazonSageMakerFullAccess
+        - AmazonS3FullAccess
+
+  StatesExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: events.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: StatesExecutionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource: "*"
+
+  SageMakerExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns:
+        - 'arn:aws-cn:iam::aws:policy/AmazonSageMakerFullAccess'
+        - 'arn:aws-cn:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess'
+      Policies:
+        - PolicyName: AmazonSageMaker-ExecutionPolicy 
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "s3:GetObject"
+                  - "s3:PutObject"
+                  - "s3:DeleteObject"
+                  - "s3:ListBucket"
+                Resource: "arn:aws-cn:s3:::*"
+
+  TrainingJobStateChangeEvent:
+    Type: AWS::Events::Rule
+    Properties: 
+      EventPattern: >
+        {
+          "source": [
+            "aws.sagemaker"
+          ],
+          "detail-type": [
+            "SageMaker Training Job State Change"
+          ]
+        }
+      RoleArn: !GetAtt [ StatesExecutionRole, Arn ]
+      Targets: 
+        - Arn: !GetAtt [ LambdaFunction, Arn ]
+          Id: Id123
+
+  EndpointStateChangeEvent:
+    Type: AWS::Events::Rule
+    Properties: 
+      EventPattern: >
+        {
+          "source": [
+            "aws.sagemaker"
+          ],
+          "detail-type": [
+            "SageMaker Endpoint State Change"
+          ]
+        }
+      RoleArn: !GetAtt [ StatesExecutionRole, Arn ]
+      Targets: 
+        - Arn: !GetAtt [ LambdaFunction, Arn ]
+          Id: Id1234
+
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+    DeletionPolicy: Retain
+
+  ModelBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+    DeletionPolicy: Retain
+
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+    DeletionPolicy: Retain
+
+  # BucketPolicy:
+  #   Type: AWS::S3::BucketPolicy
+  #   Properties:
+  #     PolicyDocument:
+  #       Id: MyPolicy
+  #       Version: 2012-10-17
+  #       Statement:
+  #         - Sid: PublicReadForGetBucketObjects
+  #           Effect: Allow
+  #           Principal: '*'
+  #           Action: 's3:GetObject'
+  #           Resource: !Join [ '', [ 'arn:aws-cn:s3:::', !Ref WebsiteBucket, /* ] ]
+  #     Bucket: !Ref WebsiteBucket
+
+  FargateCluster:
+    Type: AWS::ECS::Cluster
+
+  FargateExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.192.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.192.10.0/24
+      MapPublicIpOnLaunch: true
+
+
+Outputs:
+  # ApiGatewayApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  WelcomeApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com.cn/Prod/hello"
+  WebsiteURL:
+    Value: !GetAtt WebsiteBucket.WebsiteURL
+    Description: URL for website hosted on S3
+  VPC:
+    Value: !Ref VPC
+    Description: VPC
+  PublicSubnet1:
+    Value: !Ref PublicSubnet1
+    Description: PublicSubnet1
+  DataBucket:
+    Value: !Ref DataBucket
+    Description: S3 Bucket for Data Storage
+  ModelBucket:
+    Value: !Ref ModelBucket
+    Description: S3 Bucket for Model Storage
+  WebsiteBucket:
+    Value: !Ref WebsiteBucket
+    Description: S3 Bucket for Static Web Hosting

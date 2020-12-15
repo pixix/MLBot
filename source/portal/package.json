@@ -1,0 +1,96 @@
+{
+  "name": "ml-bot-web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@aws-amplify/ui-react": "^0.2.15",
+    "@brianmcallister/react-auto-scroll": "^1.1.0",
+    "@hookform/resolvers": "^0.1.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.44",
+    "@types/react-copy-to-clipboard": "^4.3.0",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-loader-spinner": "^3.1.0",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/react-table": "^7.0.22",
+    "@types/yup": "^0.29.6",
+    "aws-amplify": "^3.0.24",
+    "aws-appsync": "^4.0.0",
+    "axios": "^0.20.0",
+    "best-queue": "^1.1.2",
+    "classnames": "^2.2.6",
+    "date-fns": "^2.16.1",
+    "emotion": "^10.0.27",
+    "http-proxy-middleware": "^1.0.6",
+    "i18next": "^19.6.3",
+    "i18next-browser-languagedetector": "^6.0.0",
+    "i18next-http-backend": "^1.0.18",
+    "interval-promise": "^1.4.0",
+    "moment": "^2.29.1",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^6.7.0",
+    "react-i18next": "^11.7.0",
+    "react-loader-spinner": "^3.1.14",
+    "react-longpressable": "^1.1.1",
+    "react-moment": "^1.0.0",
+    "react-number-format": "^4.4.1",
+    "react-repeatable": "^2.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-scroll-to-bottom": "^4.0.0",
+    "react-table": "^7.5.0",
+    "react-webcam": "^5.2.1",
+    "redux": "^4.0.5",
+    "redux-react-hook": "^4.0.1",
+    "typescript": "^3.7.5",
+    "use-long-press": "^1.0.4",
+    "uuid": "^8.3.1",
+    "uuidv4": "^6.2.4",
+    "yup": "^0.29.3"
+  },
+  "scripts": {
+    "start": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
+    "build": "react-scripts build && rimraf build/aws-exports.json",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "cross-env": "^7.0.2",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.3"
+  }
+}

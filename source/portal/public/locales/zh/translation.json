@@ -1,0 +1,115 @@
+{
+  "title": "AWS ML-Bot",
+  "yes": "是",
+  "no": "否",
+  "signOut": "登出",
+  "info": "信息",
+  "top": {
+    "account": "账户",
+    "ml": "机器学习"
+  },
+  "leftBar": {
+    "title": "AWS ML-Bot"
+  },
+  "breadCrumb": {
+    "home": "AWS ML-Bot",
+    "create": "创建任务"
+  },
+  "step": {
+    "oneTitle": "第一步",
+    "oneDesc": "选择功能",
+    "twoTitle": "第二步",
+    "twoDesc": "图像分类",
+    "threeTitle": "第三步",
+    "threeDesc": "检查并创建"
+  },
+  "home": {
+    "title": {
+      "createTitle": "使用 ML-Bot",
+      "quickStart": "快速上手",
+      "moreResouce": "更多资源",
+      "destinationType": "功能选择"
+    },
+    "priceCalc": "成本计算器"
+  },
+  "creation": {
+    "step1": {
+      "engineType": "选择 AI 功能",
+      "engineOptions": "功能选项",
+      "tips": {
+        "title": "AWS 目标检测",
+        "desc": "AWS 目标检查很不错",
+        "line1": "图像分类是主要领域，其中深度神经网络在医学中扮演着最重要的角色",
+        "line2": "图像分析。影像分类接受给定的输入图像，并生成输出分类，用于识别",
+        "line3": "无论疾病是否存在。"
+      }
+    },
+    "step2": {
+      "image": {
+        "title": "图像分类",
+        "desc": "通过三个步骤，您的输入图像进行分类。您可以导出 AI 模型，并将其用于移动设备或 浏览器。",
+        "advancedSetting": "高级选项",
+        "step1": {
+          "name": "第一步: 定义类别",
+          "className": "类别名称",
+          "enterName": "输入类别名称。最终结果将是类别中的一个",
+          "uploadImage": "上传图片",
+          "s3Bucket": "S3存储桶",
+          "s3BucketDesc": "您希望 ML Bot 在其中存储访问日志的 Amazon S3 存储桶",
+          "chooseS3Bucket": "选择S3存储桶",
+          "holdToRecord": "按住以抓取图像",
+          "enableVideo": "启用视频",
+          "imageSamples": "图像样本",
+          "addAnotherClass": "添加另外一个类别"
+        },
+        "step2": {
+          "name": "第二步: 训练模型",
+          "time": "训练过程大约需要15分钟"
+        },
+        "step3": {
+          "name": "第三步: 预览并导出结果",
+          "desc": "模型训练完成，您可以预览结果。",
+          "upload": "上传测试图片",
+          "chooseS3": "选择导出模型的S3存储桶",
+          "ready": "模型训练完成后将会启用."
+        },
+        "step4": {
+          "name": "Step 4 (Optional): Setup this feature into your own AWS Account Info",
+          "desc": "Click the button to deploy a cloudformation stack into your own AWS account. You can upload images from S3 as input and output the result from your S3 bucket. All AWS resources are already setup for you within the template.",
+          "expectMin": "30 mins expected"
+        },
+        "step5": {
+          "name": "Step 5 (Optional): Make API Call Info",
+          "desc": "By calling the API of this feature, you can don’t need to setup your own AWS resources, you can simply call the API from your code. Please see the pricing model for the detailed information.",
+          "restApi": "Restful APIs",
+          "endPoint": "Endpoint",
+          "publicEndpoint": "This is a public endpoint provided by AWS Solutions.",
+          "exploreMore": "Explore more Similar APIs (provided by AWS Partners"
+        }
+      }
+      
+    }
+  },
+  "bottom": {
+    "copy": "© 2008 - 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.",
+    "feedback":"Feedback",
+    "privacy":"Privacy Policy",
+    "use": "Terms of Use"
+  },
+  "btn": {
+    "next": "下一步",
+    "prev": "上一步",
+    "cancel": "取消",
+    "confirm": "确认",
+    "copy": "复制",
+    "stop": "终止",
+    "createTask": "创建一个任务",
+    "viewDetail": " 查看细节",
+    "startTraining": "开始训练模型",
+    "clickPredict": "点击开始预测",
+    "upload": "上传文件",
+    "enableVideo": "打开视频",
+    "downloadModel": "下载模型",
+    "launchStack": "在AWS控制台创建解决方案"
+  }
+}

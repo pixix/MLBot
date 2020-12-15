@@ -1,0 +1,115 @@
+{
+  "title": "AWS ML-Bot",
+  "yes": "Yes",
+  "no": "No",
+  "signOut": "Sign Out",
+  "info": "Info",
+  "top": {
+    "account": "Account",
+    "ml": "Machine Learning"
+  },
+  "leftBar": {
+    "title": "ML-Bot"
+  },
+  "breadCrumb": {
+    "home": "ML-Bot",
+    "create": "Create Job"
+  },
+  "step": {
+    "oneTitle": "Step1",
+    "oneDesc": "Select AI Feature",
+    "twoTitle": "Step2",
+    "twoDesc": "Image Classification",
+    "threeTitle": "Step3",
+    "threeDesc": "Review and create"
+  },
+  "home": {
+    "title": {
+      "createTitle": "Use ML-Bot",
+      "quickStart": "Quick Start",
+      "moreResouce": "More Resources",
+      "destinationType": "Choose feature"
+    },
+    "priceCalc": "Cost Calculator"
+  },
+  "creation": {
+    "step1": {
+      "engineType": "Select AI Feature",
+      "engineOptions": "Feature options",
+      "tips": {
+        "title": "AWS Image Detection",
+        "desc": "AWS Image Detection is amazing",
+        "line1": "Image classification is the primary domain, in which deep neural networks play the most important role of medical",
+        "line2": "image analysis. The image classification accepts the given input images and produces output classification for identifying",
+        "line3": "whether the disease is present or not."
+      }
+    },
+    "step2": {
+      "image": {
+        "title": "Image Classification",
+        "desc": "With three steps, your input images are classfied. You can export AI models and use it in mobile devices or broswers. The Image classification is based on AWS technology.",
+        "advancedSetting": "Advanced Settings",
+        "step1": {
+          "name": "Step 1: Define Classes",
+          "className": "Class Name",
+          "enterName": "Enter the name of the class. Final result will be in one of the class",
+          "uploadImage": "Upload images",
+          "s3Bucket": "S3 bucket",
+          "s3BucketDesc": "The Amazon S3 bucket that you want ML-Bot to store your access logs in.",
+          "chooseS3Bucket": "Choose an S3 Bucket",
+          "holdToRecord": "Hold to Record",
+          "enableVideo": "Enable Video",
+          "imageSamples": "Image Samples",
+          "addAnotherClass": "Add Another Class"
+        },
+        "step2": {
+          "name": "Step 2: Training",
+          "time": "The training process takes about 15 minutes"
+        },
+        "step3": {
+          "name": "Step 3: Preview and Export Result",
+          "desc": "The model training completed. You can preview the result",
+          "upload": "Upload Test Image",
+          "chooseS3": "Choose S3 bucket to export model",
+          "ready": "Enabled after predict service is ready."
+        },
+        "step4": {
+          "name": "Step 4 (Optional): Setup this feature into your own AWS Account Info",
+          "desc": "Click the button to deploy a cloudformation stack into your own AWS account. You can upload images from S3 as input and output the result from your S3 bucket. All AWS resources are already setup for you within the template.",
+          "expectMin": "30 mins expected"
+        },
+        "step5": {
+          "name": "Step 5 (Optional): Make API Call Info",
+          "desc": "By calling the API of this feature, you can don’t need to setup your own AWS resources, you can simply call the API from your code. Please see the pricing model for the detailed information.",
+          "restApi": "Restful APIs",
+          "endPoint": "Endpoint",
+          "publicEndpoint": "This is a public endpoint provided by AWS Solutions.",
+          "exploreMore": "Explore more Similar APIs (provided by AWS Partners"
+        }
+      }
+      
+    }
+  },
+  "bottom": {
+    "copy": "© 2008 - 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.",
+    "feedback":"Feedback",
+    "privacy":"Privacy Policy",
+    "use": "Terms of Use"
+  },
+  "btn": {
+    "next": "Next Step",
+    "prev": "Previous",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "copy": "Copy",
+    "stop": "Stop",
+    "createTask": "Create Task",
+    "viewDetail": " View Details",
+    "startTraining": "Start Model Training",
+    "clickPredict": "Click to Predict",
+    "upload": "Upload File",
+    "enableVideo": "Enable Video",
+    "downloadModel": "Download Model",
+    "launchStack": "Launch the Solution in AWS Console"
+  }
+}
